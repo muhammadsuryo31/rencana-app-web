@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+body {
+	line-height: 1;
+	font-family: "Atkinson Hyperlegible Next", serif;
+	height: 100%;
+}
