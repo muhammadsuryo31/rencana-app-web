@@ -153,7 +153,7 @@ export default function CategoryFilter({handlers}) {
                 <>
                   <button
                     style={{ backgroundColor: category._id === filterCategory ? 'black' : category.color, color:  category._id === filterCategory ? 'white' : 'black'}}
-                    className="min-w-[5rem] max-w-[10rem] border-1 overflow-x-auto border-solid border-[black] mr-[0.5em] h-[1.5em] rounded-sm m-[0.2em] p-[0.2em]"
+                    className="min-w-[5rem] max-w-[10rem] overflow-x-auto border-solid border-[black] mr-[0.5em] h-[1.5em] rounded-sm m-[0.2em] p-[0.2em]"
                     onClick={() => handleCategoryFilter(category)}
                   >
                     {category.title}

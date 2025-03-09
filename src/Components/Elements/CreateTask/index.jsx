@@ -145,7 +145,7 @@ export default function CreateTask({operationType, title, taskId, description, p
               <button
                 type="button"
                 key={category._id}
-                className={`min-w-[5rem] max-w-[10rem] border border-black overflow-x-auto mr-[0.5em] h-[1.5em] rounded-sm m-[0.2em] p-[0.2em]
+                className={`min-w-[5rem] max-w-[10rem] overflow-x-auto mr-[0.5em] h-[1.5em] rounded-sm m-[0.2em] p-[0.2em]
                   ${categories.includes(category._id) ? 'bg-black text-white' : 'text-black'}`}
                 style={{
                   backgroundColor: categories.includes(category._id) ? "black" : category.color,

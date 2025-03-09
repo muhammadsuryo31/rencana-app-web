@@ -54,7 +54,7 @@ export default function FilterMenu({isMenuOpen, handlers}) {
 
   return(
     <div
-      className={`absolute inset-0 flex xl:relative xl:p-[1em] xl:min-w-[249px] xl:w-[15%]
+      className={`absolute inset-0 flex xl:relative xl:p-[1em] xl:min-w-2xs xl:w-[15%]
       transition-all duration-300 ease-in-out
       ${isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0 pointer-events-none"} 
       xl:translate-x-0 xl:opacity-100 xl:pointer-events-auto`}
