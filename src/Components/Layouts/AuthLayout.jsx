@@ -38,7 +38,7 @@ export default function AuthLayout({ title, children }) {
       </div>
 
       {/* Greeting */}
-      <div className="greeting-section flex flex-col order-1 md:order-2 h-[25%] sm:h-[35%] md:h-full self-center justify-start sm:justify-center w-full sm:w-4/5 md:w-2/3 bg-cover bg-right pt-4 px-4 relative scale-x-[-1]">
+      <div className="greeting-section flex flex-col order-1 md:order-2 h-[25%] sm:h-[35%] md:h-full self-center justify-start sm:justify-center w-full sm:w-4/5 md:w-2/3 bg-cover md:bg-contain xl:bg-cover md:bg-no-repeat bg-right pt-4 px-4 relative scale-x-[-1]">
         <h1 className="uppercase font-extrabold text-3xl lg:text-5xl md:text-4xl sm:text-3xl scale-x-[-1]">
           Rencana
         </h1>
