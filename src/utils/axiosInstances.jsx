@@ -14,7 +14,6 @@ api.interceptors.response.use(
 
         return api(error.config);
       } catch (error) {
-        console.error("Refresh token failed, logging out...");
         localStorage.removeItem("isAuthenticated");
         window.location.href = "/login";
       }
