@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from "sweetalert2";
 
 import { getAllCategory, putCategory, deleteCategory } from "../../../connectors";
 
@@ -25,7 +26,13 @@ export default function CategoryFilter({handlers}) {
       const categoriesData = await getAllCategory();
       dispatch(populateCategories(categoriesData.data.categories));
     } catch (error) {
-      console.log('error while retrieving category data', error)
+      const errorReason = error?.response?.data?.error || 'error while retrieving category data'
+
+      Swal.fire({
+        title: "Failed to retrieve data",
+        text: `${errorReason}`,
+        icon: "error"
+      });
     }
   }
 
@@ -36,14 +43,32 @@ export default function CategoryFilter({handlers}) {
   };
 
   const handleDelete = async (categoryId) => {
-    if (!window.confirm("Are you sure you want to delete this category?")) return;
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    });
+
+    if (!result.isConfirmed) {
+      return;
+    }
 
     try {
       await deleteCategory(categoryId);
-
       dispatch(deleteCategories(categoryId));
+      Swal.fire("Deleted!", "Your category has been deleted.", "success");
     } catch (error) {
-      console.log("Error deleting category:", error);
+      const errorReason = error?.response?.data?.error || 'error while deleting category';
+
+      Swal.fire({
+        title: "Failed to delete category",
+        text: `${errorReason}`,
+        icon: "error"
+      });
     }
   };
 
@@ -57,14 +82,19 @@ export default function CategoryFilter({handlers}) {
       setEditColor("#ffffff");
       setEditingCategory(null);
     } catch (error) {
-      console.log("Error updating category:", error);
+      const errorReason = error?.response?.data?.error || 'error while updating category';
+
+      Swal.fire({
+        title: "Failed to update category",
+        text: `${errorReason}`,
+        icon: "error"
+      });
     }
   };
 
   const handleCategoryFilter = (e) => {
     const categoryId = e._id;
     if(categoryId !== filterCategory){
-      console.log('masuk');
       
       dispatch(setCategory(categoryId))
     }

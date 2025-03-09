@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import { logout } from "../../../connectors";
 
@@ -28,18 +29,32 @@ export default function FilterMenu({isMenuOpen, handlers}) {
   };
 
   const handleLogout = async() => {
+    const result = await Swal.fire({
+      title: "log out",
+      text: "are you sure you want to logged out?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes"
+    });
+
+    if (!result.isConfirmed) {
+      return;
+    }
     try {
       await logout()
       localStorage.setItem('isAuthenticated', false);
       navigate('/login')
     } catch (error) {
-      console.log('error when logging out', error);
+      const errorResponse = error?.response?.data?.error || 'error while trying to log out'
+      Swal.fire("Error!", errorResponse, "error");
     }
   };
 
   return(
     <div
-      className={`absolute inset-0 flex xl:relative xl:p-[1em]
+      className={`absolute inset-0 flex xl:relative xl:p-[1em] xl:min-w-[249px] xl:w-[15%]
       transition-all duration-300 ease-in-out
       ${isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0 pointer-events-none"} 
       xl:translate-x-0 xl:opacity-100 xl:pointer-events-auto`}
@@ -51,10 +66,10 @@ export default function FilterMenu({isMenuOpen, handlers}) {
         className="absolute inset-0 bg-black opacity-50 p-[1em] xl:hidden"
         onClick={handleMenuClose}
       ></div>
-      <div className="min-w-[249px] xl:h-full max-h-screen bg-[#edf2f4] rounded-r-3xl xl:rounded-3xl p-[1em] relative shrink-0">
+      <div className="min-w-3xs w-3xs xl:w-full xl:h-full max-h-screen bg-[#edf2f4] rounded-r-3xl xl:rounded-3xl p-[1em] relative">
         <h1 className="text-[1.5rem] font-bold pb-[0.2em]">Filter By:</h1>
-        <hr className="w-[90%] outline-[grey]" />
-        <div className="filter-container w-[90%] h-[80%]">
+        <hr className="outline-[grey]" />
+        <div className="filter-container h-[80%]">
           <TaskFilter filterContents={tasksDues}/>
           <PriorityFilter filterContents={priorities}/>
           <CategoryFilter handlers={{setModal}} />

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { DateTime } from "luxon";
+import Swal from "sweetalert2";
 
 import { useSelector, useDispatch } from "react-redux"
 
@@ -47,15 +48,18 @@ export default function TaskDashboard() {
       
       dispatch(populateTasks(tasksData.data.tasks));
     } catch (error) {
-      console.log('error when get data', error);
+      const errorReason = error?.response?.data?.error || 'error while getting tasks'
+
+      Swal.fire({
+        title: "Failed to get tasks data",
+        text: `${errorReason}`,
+        icon: "error"
+      });
     }
   };
 
   const handleEditTask = (taskData) => {
     try {
-      console.log('taskData');
-      console.log(taskData);
-      
       const localTime = DateTime.fromISO(taskData.dueDate, { zone: "utc" }).setZone("Asia/Jakarta").toFormat("yyyy-MM-dd'T'HH:mm");
       const selectedCategories = taskData.categories.map(category => category._id)
       setModal(true);
@@ -68,7 +72,14 @@ export default function TaskDashboard() {
       setDueDates(localTime);
       setCategories(selectedCategories);
     } catch (error) {
-      console.log('error while handling editing data', error);
+      const errorReason = error?.response?.data?.error || 'error while editing task'
+
+      Swal.fire({
+        title: "Failed to edit task",
+        text: `${errorReason}`,
+        icon: "error"
+      });
+
       
     }
     
@@ -123,7 +134,7 @@ export default function TaskDashboard() {
         }}
       />
     </Modal>
-    <div className="h-full grow-5 text-[1rem] p-[1em]">
+    <div className="h-full grow-1 text-[1rem] p-[1em]">
       <Header taskDues={taskDues} taskLength={tasks.length} />
       <div className="h-[65%] mt-[1em] mb-[1em] flex flex-col">
         <AddTask handlers={{handleOpenModal}}/>

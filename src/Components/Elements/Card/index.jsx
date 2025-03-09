@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 
 import { getOneTask, putTask, deleteTask } from "../../../../connectors";
 import { editTask, deleteTasks } from "../../../../stores/tasksSlice";
@@ -21,7 +22,12 @@ export default function Card({ task, handlers }) {
         dispatch(editTask({ ...editedData, _id: task._id }));
       }
     } catch (error) {
-      console.log("Error while editing task status", error);
+      const errorReason = error?.response?.data?.error || 'error while editing task status';
+      Swal.fire({
+        title: "Failed to edit task",
+        text: `${errorReason}`,
+        icon: "error"
+      });
     }
   };
 
@@ -30,20 +36,46 @@ export default function Card({ task, handlers }) {
       const editedTask = await getOneTask(taskId);
       handleEditTask(editedTask.data.task);
     } catch (error) {
-      console.log('Error while getting data for editing', error);
+      const errorReason = error?.response?.data?.error || 'error while getting data for editing';
+
+      Swal.fire({
+        title: "Failed to get task data",
+        text: `${errorReason}`,
+        icon: "error"
+      });
     }
   };
 
   const handleDelete = async (taskId) => {
-    if (!window.confirm("Are you sure you want to delete this Task?")) return;
-    
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    });
+
+    if (!result.isConfirmed) {
+      return;
+    }
+  
     try {
       await deleteTask(taskId);
       dispatch(deleteTasks(taskId));
+      Swal.fire("Deleted!", "Your task has been deleted.", "success");
     } catch (error) {
-      console.log("Error deleting category:", error);
+      const errorReason = error?.response?.data?.error || 'error while deleting task'
+
+      Swal.fire({
+        title: "Failed to delete task",
+        text: `${errorReason}`,
+        icon: "error"
+      });
     }
   };
+  
 
   return (
     <div className="flex border-b-1 py-[1em] justify-between">

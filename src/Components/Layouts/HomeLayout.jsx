@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from "sweetalert2";
 
 import { populateTasks } from "../../../stores/tasksSlice";
 
-import { api } from "../../utils"
+import { getAllTasks } from "../../../connectors";
 
 import FilterMenu from "../Fragments/FilterMenu";
 import TaskDashboard from "../Fragments/taskDashboard";
@@ -18,23 +19,26 @@ export default function HomeLayout(){
   
   const fetchData = async() => {
     try {
-      const query = `tasks?task=${filterTask}&priority=${filterPriority}&category=${filterCategory}`;
-      const tasksData = await api.get(query);
+      const tasksData = await getAllTasks({filterTask, filterPriority, filterCategory});
       
       dispatch(populateTasks(tasksData.data.tasks));
     } catch (error) {
-      console.log('error when get data', error);
+      const errorReason = error?.response?.data?.error || 'error while getting tasks'
+
+      Swal.fire({
+        title: "Failed to get tasks data",
+        text: `${errorReason}`,
+        icon: "error"
+      });
     }
   }
 
   const handleMenuOpen = () => {
-    setMenuOpen(true)
+    setMenuOpen(true);
   }
 
-  const handleMenuClose = () => {
-    console.log('masuk sini');
-    
-    setMenuOpen(false)
+  const handleMenuClose = () => { 
+    setMenuOpen(false);
   }
   
   useEffect(() => {

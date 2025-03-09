@@ -28,7 +28,7 @@ export default function LoginForm() {
       setPassword('');
       navigate('/');
     } catch (error) {
-      const errorReason = error.response.data.error;
+      const errorReason = error?.response?.data?.error || 'error while logging in'
 
       Swal.fire({
         title: "Fail to login",

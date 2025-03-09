@@ -53,11 +53,10 @@ export default function RegisterForm() {
 
       navigate("/login");
     } catch (error) {
-      console.error("Error while registering user", error);
       Swal.fire({
         icon: "error",
         title: "Registration Failed",
-        text: error.response?.data?.error || "Something went wrong.",
+        text: error?.response?.data?.error || "error while registering new user",
       });
     } finally {
       setEmail("");

@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 
 import { addCategories } from "../../../stores/categoriesSlice";
 
@@ -45,7 +45,13 @@ export default function CreateCategory({title, color, handlers}) {
       setColor("#ffffff");
       setModal(false);
     } catch (error) {
-      console.log('error while add new tags', error);
+      const errorReason = error?.response?.data?.error || 'error while adding new category'
+
+      Swal.fire({
+        title: "Failed to add new category",
+        text: `${errorReason}`,
+        icon: "error"
+      });
       
     }
   };

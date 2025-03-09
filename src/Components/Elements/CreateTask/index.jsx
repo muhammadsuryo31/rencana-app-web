@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 import { api } from "../../../utils";
 
@@ -50,7 +51,13 @@ export default function CreateTask({operationType, title, taskId, description, p
 
       await fetchTask();
     } catch (error) {
-      console.log('error while adding data', error);
+      const errorReason = error?.response?.data?.error || 'error while adding data'
+
+      Swal.fire({
+        title: "Failed to add data",
+        text: `${errorReason}`,
+        icon: "error"
+      });
     }
   }
 
