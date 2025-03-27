@@ -79,6 +79,10 @@ export default function ReverificationForm(){
           text: "error while generating reverification token",
           icon: "error"
         });
+        setLoading(false);
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
       }
     }
   }
