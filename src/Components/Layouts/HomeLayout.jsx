@@ -7,7 +7,7 @@ import { populateTasks } from "../../../stores/tasksSlice";
 import { getAllTasks } from "../../../connectors";
 
 import FilterMenu from "../Fragments/FilterMenu";
-import TaskDashboard from "../Fragments/taskDashboard";
+import TaskDashboard from "../Fragments/TaskDashboard";
 
 export default function HomeLayout(){
   const filterPriority = useSelector((state) => state.filters.priority);
