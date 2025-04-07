@@ -12,10 +12,15 @@ import VerificationPage from './Pages/verification.jsx'
 import ReverificationPage from './Pages/reverification.jsx';
 import RegisterPage from './Pages/register.jsx';
 import ProtectRoutes from './utils/ProtectRoutes.jsx';
+import LandingPage from './Pages/landingPage.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
+    element:<LandingPage />
+  },
+  {
+    path: '/dashboard',
     element: <ProtectRoutes>
       <HomePage />
     </ProtectRoutes>,
