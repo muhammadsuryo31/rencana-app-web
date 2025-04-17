@@ -26,7 +26,7 @@ export default function LoginForm() {
       dispatch(loginReducer(email));
       setEmail('');
       setPassword('');
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       const errorReason = error?.response?.data?.error || 'error while logging in'
 
