@@ -47,7 +47,7 @@ export default function HomeLayout(){
 
   return (
     <div className="homeContainer flex w-screen h-screen">
-      <div className={`absolute right-[2em] top-[2em] ${isMenuOpen ? 'hidden' : ''} xl:hidden`} >
+      <div className={`absolute right-[2em] top-[2em] ${isMenuOpen ? 'hidden' : ''} lg:hidden`} >
         <span
           className="material-symbols-outlined cursor-pointer p-2 rounded-md 
           hover:bg-gray-200 active:bg-gray-300 transition-all duration-200"

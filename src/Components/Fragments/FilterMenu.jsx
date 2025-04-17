@@ -54,19 +54,19 @@ export default function FilterMenu({isMenuOpen, handlers}) {
 
   return(
     <div
-      className={`absolute inset-0 flex xl:relative xl:p-[1em] xl:min-w-2xs xl:w-[15%]
+      className={`absolute inset-0 flex lg:relative lg:p-[1em] lg:min-w-2xs lg:w-[15%]
       transition-all duration-300 ease-in-out
       ${isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0 pointer-events-none"} 
-      xl:translate-x-0 xl:opacity-100 xl:pointer-events-auto`}
+      lg:translate-x-0 lg:opacity-100 lg:pointer-events-auto`}
     >
       <Modal isOpen={isModal} onClose={handleCloseModal}>
         <CreateCategory title={title} color={color} handlers={{setColor, setTitle, setModal}} />
       </Modal>
       <div
-        className="absolute inset-0 bg-black opacity-50 p-[1em] xl:hidden"
+        className="absolute inset-0 bg-black opacity-50 p-[1em] lg:hidden"
         onClick={handleMenuClose}
       ></div>
-      <div className="min-w-3xs w-3xs xl:w-full xl:h-full max-h-screen bg-[#edf2f4] rounded-r-3xl xl:rounded-3xl p-[1em] relative">
+      <div className="min-w-3xs w-3xs lg:w-full lg:h-full max-h-screen bg-[#edf2f4] rounded-r-3xl lg:rounded-3xl p-[1em] relative">
         <h1 className="text-[1.5rem] font-bold pb-[0.2em]">Filter By:</h1>
         <hr className="outline-[grey]" />
         <div className="filter-container h-[80%]">
