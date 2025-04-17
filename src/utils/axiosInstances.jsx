@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "https://rencana-app-server.onrender.com",
   withCredentials: true,
 });
 
@@ -10,7 +10,7 @@ api.interceptors.response.use(
   async (error) => {
     if (error.response?.status === 401) {
       try {
-        await axios.post("http://localhost:3000/users/refresh-token", {}, { withCredentials: true });
+        await axios.post("https://rencana-app-server.onrender.com/users/refresh-token", {}, { withCredentials: true });
 
         return api(error.config);
       } catch (error) {
