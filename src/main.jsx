@@ -13,6 +13,7 @@ import ReverificationPage from './Pages/reverification.jsx';
 import RegisterPage from './Pages/register.jsx';
 import ProtectRoutes from './utils/ProtectRoutes.jsx';
 import LandingPage from './Pages/landingPage.jsx';
+import NotFoundPage from './Pages/notFound.jsx';
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
   },
   {
     path:'*',
-    element: <h1>Page not found</h1>
+    element: <NotFoundPage />
   }
 ])
 
