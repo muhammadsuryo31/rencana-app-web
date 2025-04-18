@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import LoginForm from "../Components/Fragments/LoginForm";
 import AuthLayout from "../Components/Layouts/AuthLayout";
 
+import Layout from "./layout";
+
 export default function LoginPage() {
   const loginTitle = "Log in to your account";
   const navigate = useNavigate();
@@ -19,11 +21,13 @@ export default function LoginPage() {
 
   return (
     <>
-      {!isAuthenticated && (
-        <AuthLayout title={loginTitle}>
-          <LoginForm />
-        </AuthLayout>
-      )}
+      <Layout>
+        {!isAuthenticated && (
+          <AuthLayout title={loginTitle}>
+            <LoginForm />
+          </AuthLayout>
+        )}
+      </Layout>
     </>
   );
 }

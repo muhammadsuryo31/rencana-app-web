@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import RegisterForm from "../Components/Fragments/RegisterForm";
 import AuthLayout from "../Components/Layouts/AuthLayout";
+import Layout from "./layout";
 
 export default function RegisterPage(){
   const RegisterTitle = 'Create your account'
@@ -19,9 +20,11 @@ export default function RegisterPage(){
 
   return(
     <>
-    <AuthLayout title={RegisterTitle}>
-      <RegisterForm />
-    </AuthLayout>
+      <Layout>
+        <AuthLayout title={RegisterTitle}>
+          <RegisterForm />
+        </AuthLayout>
+      </Layout>
     </>
   )
 }
